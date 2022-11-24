@@ -3,7 +3,7 @@ import time
 import posi_manager
 from interaction_background import InteractionBGD
 from timer_module import Timer
-from unit import *
+from util import *
 
 
 def default_trigger_func():
@@ -74,8 +74,10 @@ class Character:
             return True
 
     def _trigger_q_ready(self):
-        cap = self.itt.capture()
-        cap = self.itt.png2jpg(cap, channel='ui', alpha_num=20)
+        # cap = self.itt.capture()
+        cap = self.itt.png2jpg(cap, channel='ui', alpha_num=20)  # BEFOREV3D1
+        # cap = self.itt.png2jpg(cap, channel='bg', alpha_num = 175)
+
         p = posi_manager.posi_charalist_q_point[self.n - 1]
         if cap[p[0], p[1]].max() > 0:
             return True
@@ -95,7 +97,7 @@ class Character:
             self.trigger = self._trigger_idle
 
     def get_Ecd_time(self):
-        t = self.Ecd_timer.getDiffTime()
+        t = self.Ecd_timer.get_diff_time()
         t = self.Ecd_time - t
         if t <= 0:
             return 0
@@ -138,7 +140,7 @@ class Character:
     #         return True
 
     def get_Ecd_last_time(self):
-        t = self.Elast_timer.getDiffTime()
+        t = self.Elast_timer.get_diff_time()
         t = self.Elast_time - t
         if t <= 0:
             return 0
@@ -146,7 +148,7 @@ class Character:
             return t
 
     def get_Q_last_time(self):
-        t = self.Qlast_timer.getDiffTime()
+        t = self.Qlast_timer.get_diff_time()
         t = self.Qlast_time - t
         if t <= 0:
             return 0
